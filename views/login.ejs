@@ -18,21 +18,21 @@
 
     <section class="main-login">
         
-        <div class="cajaLogin">
+        <div class="cajaLogin" style="padding: 30px 30px 30px 30px;">
             <div style="display: flex; justify-content: center;">
             <img class="logobody" src="/images/iconos/LogoFN.png" alt="">
             </div>
         
 
             <div class="tengoCuenta">  
-                 <h1 id="h1Cuenta">Ya tengo cuenta</h1>   
-                 <h2 id="h2Cuenta">Login</h2>  
+                 <h1 id="h1Cuenta">Acceder</h1>   
+                 
             </div>       
 
             <% if (typeof errors != "undefined"){ %>
                 <ul>
                     <% for (var i= 0; i< errors.length ; i++) { %>
-                        <li> <%= errors[i].msg %> </li>
+                        <li class="errorLogin"> <%= errors[i].msg %> </li>
                     <%}%>
                 </ul>
             <%}%>    
@@ -40,38 +40,34 @@
             <form action="/users/login" method="POST" class="formLogin"> 
         
             <p class="formulario">
-                <label for="user">Ingrese su Email</label>
+                <label for="user" style="font-weight: bold;">Ingrese su Email:</label>
             </p>
                 <p class="formulario">
                 <input type="email" name="email" id="user">
             </p>
             <p class="formulario">
-                <label for="pass">Contraseña:</label></p>
+                <label for="pass" style="font-weight: bold;">Contraseña:</label></p>
                 <p class="formulario">
                 <input type="password" name="password" id="pass">
             </p>
-            <label for="remember">Recordar Sesion</label>
-            <input type="checkbox" name="remember" id="remember">
+            <label for="remember" style="font-weight: bold;">Recordar Sesion</label>
+            <input type="checkbox" name="remember" id="remember" checked>
             <p id="forgotpass" class="formulario"><a href="">¿Olvidaste tu contraseña?</a></p>
+            <p id="forgotpass" class="formulario"><a href="/users/register">¿No tienes una cuenta? Registrate</a></p>
 
             <p class="formulario"><button id="botonCA" type="submit" name="login">Ingresar</button></p><br>
+
+            <% if(typeof errorAlLoguear != "undefined"){ %>
+                <p class="errorLogin"><%= errorAlLoguear %></p>
+            <% } %>
         </form>
 
     </div>
-    <% if(typeof errorAlLoguear != "undefined"){ %>
-        <p><%= errorAlLoguear %></p>
-    <% } %>
+    
 
 
 </section>  
-    <section class="main-login">
-        <div class="cajaLogin">
-        <h1 id="nameCaja">¿Primera vez?</h1> <br>              
-        <div class="registroFbyGoogle">    
-        <a href="/users/register"><button id="botonFBG" type="submit" name="irLogin">Registrate ahora</button></a><br>
-    </div>
-</div> 
-    </section>    
+
 
 <%- include('./partials/footerFN') %> 
     

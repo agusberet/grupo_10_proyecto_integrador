@@ -1,10 +1,46 @@
+ 
 <header> 
+    <script>
+        window.addEventListener("load", function(){
+            console.log("estamos en header");    
+            console.log(req.cookies.remember);        
+            
 
-    <div class="login-register" style="padding-top:3px; padding-bottom: 2px;" > 
-            <div class="login-user" >
-                 <a href="/users/acceder"><img src="/images/iconos/acceder.png" style="width: 43px;" alt=""></a>
-            </div>  
-    </div>
+        });
+
+        </script>
+   
+
+    <nav class="nav-acceder" style="padding-top:1px; padding-bottom: 2px;" >     
+        <ul class="menu-acceder">        
+            <li><a href="" style="height: 47px;"><img class="logo-acceder" src="/images/iconos/acceder.png" style="width: 43px;" alt=""></a>
+                <ul class="lista" style="right: 5px;">
+
+                   
+                    <li > <a href="" class="hola">Bienvenido </a> </li>
+                  
+                    <li class="no"> <a href="/users/login" class="opcion">Login</a> </li>
+                    <li class="no">  <a href="/users/register" class="opcion">Registrate</a> </li>                  
+                                         
+                   
+                    <li class="si">  <a href="/users/micuenta" class="opcion">MI CUENTA</a> </li>
+                   
+
+                  <!--  <li class="si">  <a href="/users/editPassword" class="opcion">Editar Contraseña</a> </li>
+                    <li class="si">  <a href="/users/destroySession" class="opcion"> Cerrar Sesión</a> </li>
+                   
+
+                    <li class="si admin">  <a href="/products/listado" class="opcion">Admin. Productos</a> </li>
+                    <li class="si admin">  <a href="/products/add" class="opcion">Agregar Producto</a> </li>
+                    
+                   -->
+                    
+                </ul>                
+            </li>
+        </ul>
+    
+</nav>
+
 
     <div class="container-nav">  
             <div class="div-logo">

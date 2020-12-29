@@ -3,6 +3,9 @@ const productController = require('../controllers/productsController');
 var router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const adminMiddleware = require('../middlewares/adminMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
+const guestMiddleware = require('../middlewares/guestMiddleware');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,17 +27,17 @@ router.get('/categorias/:id', productController.filtrardb); // muestra la lista 
 
 router.get('/ofertas', productController.ofertas);
 
-router.get('/listado', productController.listado) //para que el administrador pueda ver editar y borrar una lista de productos
+router.get('/listado', authMiddleware, adminMiddleware,  productController.listadoTabla) //para que el administrador pueda ver editar y borrar una lista de productos
 
 router.get('/detail/:id', productController.detail);
 
-router.get('/add', productController.productAdd); //para mostrar el formulario
+router.get('/add', authMiddleware, adminMiddleware, productController.productAdd); //para mostrar el formulario
 router.post('/add', upload.any(), productController.processAdd); //procesa el formulario
 
-router.get('/edit/:id', productController.editarProducto); //muestra el formulario de edicion
+router.get('/edit/:id',authMiddleware, adminMiddleware, productController.editarProducto); //muestra el formulario de edicion
 router.post('/edit/:id', upload.any(), productController.actualizarProducto);//procesa y actualiza la informacion sobre el producto
 
-router.get("/borrar/:id", productController.borrar);
+router.get("/borrar/:id",authMiddleware, adminMiddleware, productController.borrar);
 
 router.get('/cart', productController.cart);
 

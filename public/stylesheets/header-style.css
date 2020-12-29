@@ -1,4 +1,65 @@
 
+.nav-acceder{    
+    display: flex;
+    justify-content: flex-end;    
+    background-color: black;
+    padding-right: 3.5%;
+    display: flex;
+    height: 8vh;
+    align-content: center;
+} 
+.nav-acceder ul{
+    z-index: 2;
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.nav-acceder ul li{
+    z-index: 2;    
+    list-style: none;
+    position: relative;
+}
+.nav-acceder h3{
+    padding: 1rem 2rem;
+    z-index: 2;
+    align-self: center;
+
+}
+.nav-acceder ul li a{
+    display:block;
+    padding: 0 2rem;
+    line-height: 5rem;
+    color: black;
+    text-decoration: none ;   
+   
+}
+.nav-acceder ul li ul{
+    display:none;
+    /*display:block;*/
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding-left: 0; 
+    border-radius: 4px;
+   
+}
+.nav-acceder ul li:hover ul{
+    display:block;
+}
+.nav-acceder ul li:hover ul{
+    display: block;
+}
+.nav-acceder ul li ul li a{
+    width: 100%;
+    padding: 1rem 2rem;
+    line-height: unset;
+    white-space: nowrap;
+}
+.opcion:hover{
+    color: crimson;
+    font-weight: bolder;
+}
+
 header{ 
     font-family: 'PT Serif', serif;
     font-size: 15px;
@@ -10,33 +71,8 @@ header{
     background-color: white; 
     padding-bottom: 2%;   
 }
-.acceder{
-    
-}
-.acceder img{
-    width: 50%;
-}
-.login-register{
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 20px;
-    padding-right: 7%;
-    padding-bottom: 20px;
-    background-color: black;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-right: 1%;
-   
-    
-}
-.login-register a{
-    text-decoration: none;
-    color:white;
-    font-size: 14;
-    font-weight: bolder;
-    padding-left: 1%;
-    
-}
+
+
 .container-nav{
     display: flex;
     justify-content: space-around;

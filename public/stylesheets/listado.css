@@ -39,7 +39,7 @@ body{
     display: flex;
     justify-content: space-around;
 }
-ul{
+.listado-products{
     width: 100%;
 }
 

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!--  Datatables  -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>  
+
+    <!--  extension responsive  -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    
+    <link rel="stylesheet" href="/stylesheets/header-style.css">
+
+    <link rel="stylesheet" href="/stylesheets/footer-style.css">   
+    
+    <link rel="stylesheet" href="/stylesheets/tabla.css">
+
+    <title></title>
+
+    <style>
+    table thead{
+        background-color: #38ef7d;        
+    }
+    </style>
+     <script>
+        window.addEventListener("load",function(){
+            console.log("Se cargó la pagina")
+            let editar = document.querySelector(".editar");
+            let borrar= document.querySelector(".borrar");
+            let tableExample= document.getElementById("example")
+
+            editar.addEventListener("click", function(e){                
+                let confirma= confirm("¿Quieres editar el producto seleccionado?")
+                if (!confirma){
+                    e.preventDefault()
+                }                
+            }); 
+            borrar.addEventListener("click", function(e){
+                let confirma= confirm("ADVERTENCIA! ¿confirma que desea ELIMINAR el producto seleccionado?")
+                if (!confirma){
+                    e.preventDefault()
+                }       
+            })
+            
+            if( window.outerWidth <= 410 ){
+                //eliminar la clase table (porque evita que sea responsive)
+                tableExample.classList.remove("table")        
+            }else{
+                tableExample.classList.add("table")
+            }
+
+
+        });
+    </script>
+  </head>
+
+  <body >
+    <%- include('./partials/headerFN') %>
+
+    <main>
+        <div>
+    <h1 class="text-center" style="margin-top: 3%">Listado de Productos</h1>    
+    
+    <div class="container">
+       <div class="row">
+           <div class="col-lg-12">
+            <table id="example" class="table table-bordered  display nowrap" cellspacing="0" width="100%" style="justify-self: center;">
+               
+                <thead>
+
+                    <tr class="columna">
+                        <th>Producto</th>
+                        <th>Categoria</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+                <% for (let i=0; i < productos.length; i++) { %>     
+                <tbody>
+                    
+                    <tr class="filas">
+                        <td> <%=i + 1 +"."%> <%=productos[i].nombre%>   </td>     
+                        <td><%=productos[i].categorias.nombre%></td>
+                        <td>$<%=productos[i].precio%></td>                      
+                        
+                        <td>
+                            <a  class="ver" id="ver" href="/products/detail/<%=productos[i].id%>" style="color: blue; margin-right: 2%;">  
+                                Ver |
+                              </a>  
+                              <a  class="editar" id="editar" href="/products/edit/<%=productos[i].id%>" style="color: green;; margin-right: 2%;">
+                                 Editar
+                              </a>
+
+                              <a  class="borrar" id="borrar" href="/products/borrar/<%=productos[i].id%>" style=" color: red;">    
+                                  | Borrar
+                              </a>    
+                        </td>
+                       
+    
+                    </tr>
+                    
+                    
+                </tbody>
+                <%  } %>
+                
+            </table>  
+         
+           </div>
+       </div> 
+    </div>
+</div>
+</main>
+   
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            
+    <!--   Datatables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
+      
+    <!-- extension responsive -->
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    
+    
+      
+    <!--  <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true
+            });
+        } );  
+    
+    </script> -->
+      
+    <%- include('./partials/footerFN') %> 
+      
+  </body>
+</html>

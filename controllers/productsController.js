@@ -60,6 +60,22 @@ const productController={
             console.log(error)
         }
     },  
+    listadoTabla: function(req,res){ 
+        try {
+            db.Producto.findAll(            
+                {
+                    include: [{association:"categorias"}]
+                }
+            )
+
+                .then(function (productos) {
+
+                    res.render('listadoProductos', {productos:productos});
+                });
+        } catch (error) {
+            console.log(error)
+        }
+    },  
    
     ofertas:  function(req, res) { 
         db.Producto.findAll({
@@ -75,13 +91,13 @@ const productController={
 
     },  
 
-     listado:  function(req, res) { //para el administador
+     /*listado:  function(req, res) { //para el administador
         db.Producto.findAll() 
         .then(function(productos) {
         res.render("listado", {productos:productos})
     })   
 
-    },  
+    },  */
 
     productDetail: function(req, res) { //sirve de ejemplo (es del sprint3)
         res.render('productDetail');

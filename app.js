@@ -12,6 +12,8 @@ var cartsRouter = require('./routes/carts');
 var rememberMiddleware = require('./middlewares/rememberMiddleware');
 
 
+
+
 var app = express();
 
 // view engine setup
@@ -33,10 +35,13 @@ app.use('/products', productsRouter);
 app.use('/users', usersRouter);
 app.use('/carts', cartsRouter);
 
-// catch 404 and forward to error handler
+/*catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-});
+});*/
+app.use((req, res, next)=>{ // cuando el  estatus sea 404 renderiza a la vista not found
+  res.status(404).render("not-found")
+})
 
 // error handler
 app.use(function(err, req, res, next) {
