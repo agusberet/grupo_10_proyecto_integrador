@@ -30,7 +30,7 @@ const cartsController = {
                     include: [{association: 'productos'}, {association: 'imagenes'}]
                 })
                 .then(function(carrito_producto){
-                    res.render("carts/productCart", {carrito_producto})
+                    res.render("productCart", {carrito_producto})
                 })
             }
         })
