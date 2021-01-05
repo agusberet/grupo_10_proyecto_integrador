@@ -12,7 +12,9 @@ let adminMiddleware = function (req,res,next){
                 res.send('Error, No sos administrador!');
           }         
       }
+      }
+    }
         
-}
+
 
 module.exports = adminMiddleware;
