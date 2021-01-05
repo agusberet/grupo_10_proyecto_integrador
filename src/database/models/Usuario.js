@@ -10,7 +10,7 @@ module.exports = (sequelize, dataTypes) =>{
         apellido: dataTypes.STRING,
         email: dataTypes.STRING,
         password: dataTypes.STRING,
-        rol_id: dataTypes.BOOLEAN // PARA SABER SI ES ADMINISTRADOR O USUARIO
+        rol_id: dataTypes.INTEGER // PARA SABER SI ES ADMINISTRADOR O USUARIO
     }
     let config = {
         tableName : 'usuarios',

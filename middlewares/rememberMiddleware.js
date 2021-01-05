@@ -1,25 +1,11 @@
-const db = require('../src/database/models');
 
-function rememberMiddleware(req, res, next){
- 
-    if(req.cookies.remember != undefined && req.session.usuarioLogueado == undefined){
-        db.Usuario.findOne({
-            where: {
-                email: req.cookies.remember
-            }
-        })
-        .then(function(usuario){
-            if(req.cookies.remember == usuario.email){
-                
-                req.session.usuarioLogueado = usuario;
-                res.locals.isAuthenticated = true;
-                res.locals.usuarioLogueado = usuario
-            } 
+
+function rememberMiddleware (req,res,next){
+    if(req.cookies.remember != undefined && req.session.usuarioLogueado == undefined){       
+            req.session.usuarioLogueado = req.cookies.remember;    
             
-        })
-      
     }
-    next();
+    next()
+   
 }
-
-module.exports = rememberMiddleware;
+module.exports= rememberMiddleware;

@@ -16,12 +16,12 @@
     <main class="main-crearCuenta">  
         <section class="secciones">
 
-        <h1 id="formularioTitulo">Editar Perfil</h1>   
+        <h1 id="formularioTitulo">Agregar Administrador</h1>   
 
         <% if (typeof errors != "undefined"){ %>
             <ul style="padding: 0;">
                 <% for (var i= 0; i< errors.length ; i++) { %>
-                    <li style="list-style: none; color:red"> <%= errors[i].msg %> </li>
+                    <li style="list-style: none; color:red" class="listaDeErrores"> <%= errors[i].msg %> </li>
                 <%}%>
             </ul>
         <%}%>
@@ -29,37 +29,45 @@
             <p style="color:red"><%= errorAlLoguear %></p>
         <% } %>           
 
-
         <div class="cajaFormularioRegistro">     
        
-        <form action="/users/editPerfil/<%=usuario.id%>" method="POST" class="formRegistro">
+        <form action="/users/agregarAdmin" method="POST" class="formRegistro">
             <p class="formulario">
                 <label for="nombre">Nombre:</label>
             </p>
                 <p class="formulario">
-                <input class="input1" type="text" name="nombre" id="nombre" value= "<%=usuario.nombre%>" >
-                <p >
+                <input class="input1" type="text" name="nombre" id="nombre">
                 
             </p>
             <p class="formulario">
                 <label for="nombre">Apellido:</label></p>
                 <p class="formulario">
-                <input class="input1" type="text" name="apellido" id="nombre" value= "<%=usuario.apellido%>" >
+                <input class="input1" type="text" name="apellido" id="nombre">
             </p>
             <p class="formulario">
                 <label for="email">Email:</label></p>
                 <p class="formulario">
-                <input class="input1" type="email" name="email" id="email" value="<%=usuario.email%>" >
+                <input class="input1" type="email" name="email" id="email">
             </p>
+            <p class="formulario">
+                <label for="pass">Contraseña:</label></p>
+                <p class="formulario">
+                <input class="input1" type="password" name="password" id="pass">
+            </p>
+            <p class="formulario">
+                <label for="repetirPass">Repetir Contraseña:</label></p>             
+                <p class="formulario">
+                    <input type="password" name="confirmPassword" id="repetirPass" placeholder="Confirmar contraseña">
+                </p>
 
             <div class="divBotonCA">
-                <button id="botonCA" type="submit">Editar</button>
-                <button id="botonCA" type="reset">Resetear</button>
+                <button id="botonCA" type="submit" name="compra">Registrar</button>
             </div>
         </form>
     </div>
 </section>
-
+    
+   
     </main>
 
 <%- include('./partials/footerFN') %>

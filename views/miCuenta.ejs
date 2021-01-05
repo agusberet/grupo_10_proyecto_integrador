@@ -3,30 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mi Cuenta</title>
+    <link rel="stylesheet" href="/stylesheets/header-style.css">
+    <link rel="stylesheet" href="/stylesheets/footer-style.css">    
+    <link rel="stylesheet" href="/stylesheets/micuenta.css">
 </head>
 <body>
-        <p> hola <%=usuarioEncontrado.nombre%></p>
-        <p> este es tu email <%=usuarioEncontrado.email%> </p>
-        <p>este es tu id de usuario: <%=usuarioEncontrado.id%></p>
-        <p> acordate de configurar tu dirección</p>
 
-        <ul>
-            <li class="si admin">  <a href="/users/editPerfil/<%=usuarioEncontrado.id%>" class="opcion">Editar Perfil</a> </li>
-            <li class="si">  <a href="/users/editPassword/<%=usuarioEncontrado.id%>" class="opcion">Editar Contraseña</a> </li>
+    <%- include('./partials/headerFN') %>
 
-            <li class="si admin">  <a href="/products/admin" class="opcion">Agregar Adiministrador</a> </li>
+    <div class="container">
+    <main>
+        <div>
+            <div class="principal">
 
-            <li class="si admin">  <a href="/products/listado" class="opcion">Administrar Productos</a> </li>
-            <li class="si admin">  <a href="/products/add" class="opcion">Agregar Producto</a> </li>
+            <h1 class="saludo">¡Hola, <%=usuario.nombre%>!</h1>
+            </div>
 
-            <li class="si">  <a href="/users/destroySession" class="opcion"> Cerrar Sesión</a> </li>
-                   
+            <div class="opcionCuenta">
+            <ul >
+                
+                <li class="user">  <a href="/users/editPerfil/<%=usuario.id%>" >Editar Perfil</a> </li>
+                <li class="user">  <a href="/users/editPassword/<%=usuario.id%>">Editar Contraseña</a> </li>
+            
+                <% if (usuario.rol_id == 2){ %>
+                <li class="admin">  <a href="/products/listado" >Administrar Productos</a> </li>
+                <li class="admin">  <a href="/products/add" >Agregar Producto</a> </li>
+                <li class="si admin">  <a href="/users/agregarAdmin" >Agregar Adiministrador</a> </li>
+                <% } %>
+                <li class="si">  <a href="/users/destroySession" > Cerrar Sesión</a> </li>
+               
 
+                        
                     
-                   
-        </ul>
+            </ul>
+            </div>
+        </div>
+    </main>
+</div>
 
-        
+        <%- include('./partials/footerFN') %> 
 </body>
 </html>

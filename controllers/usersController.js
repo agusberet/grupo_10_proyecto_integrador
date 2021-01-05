@@ -6,10 +6,10 @@ const { validationResult } = require('express-validator');
 const db = require('../src/database/models');
 const { stringify } = require('querystring');
 
-
-
-const usersController = {
-   
+const usersController = {  
+    locals: function (req, res, next) {
+        res.render("prueba"); 
+    }, 
     
     register: function (req, res, next) {
         res.render("register"); //lo enviamos a la vista register
@@ -38,7 +38,10 @@ const usersController = {
                                      
                 })
                .then(function(usuario){
-                    req.session.usuarioLogueado = usuario
+                    req.session.usuarioLogueado= usuario.email;
+                    res.cookie('usuarioID', usuario.id, {maxAge:80000000}); 
+                    res.cookie('usuarioRol',  usuario.rol_id, {maxAge:80000000});                
+
                     res.redirect('/products');                    
                 })
             } else {
@@ -57,7 +60,7 @@ const usersController = {
         
     },
 
-    processLogin: function (req, res, next) {    
+    processLogin: function (req, res, next) {  
         // verifica que no haya errores
         let errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -76,15 +79,17 @@ const usersController = {
             } else {
                 if(bcrypt.compareSync(req.body.password, usuario.password)){ // comparamos la contraseña ingresada con la contraseña de la db
                     
-                    req.session.usuarioLogueado = usuario;
+                    req.session.usuarioLogueado = usuario; 
+                    res.locals.isAuthenticated = true;
+                    res.locals.usuarioLogueado = usuario.email;    
                     
 
-                    if(req.body.remember != undefined){
-                        res.cookie('remember', usuario.email, {maxAge:80000000})
-                        
-                        
+                    if(req.body.remember!= undefined){
+                        res.cookie('remember', usuario.email, {maxAge:80000000}); 
+                        res.cookie('usuarioID', usuario.id, {maxAge:80000000}); 
+                        res.cookie('usuarioRol',  usuario.rol_id, {maxAge:80000000});                         
                     }
-                    res.redirect('/products');
+                    res.redirect('/home');
                 } else {
                     res.render("login",{errorAlLoguear:"Usuario y/o contraseña invalida."});
                 }
@@ -101,9 +106,9 @@ const usersController = {
                     email: usuario
                 }
             })
-            .then(function(usuarioEncontrado){
-                req.session.usuarioLogueado= usuarioEncontrado;
-                res.render('miCuenta', {usuarioEncontrado}) 
+            .then(function(usuario){
+                req.session.usuarioLogueado= usuario.email;       
+                res.render('miCuenta', {usuario}) 
             })
     }else{
         res.render('login');
@@ -111,41 +116,22 @@ const usersController = {
     }
 },
 
-    config: function(req,res,next){
-       let userID= req.locals.usuarioLogueado.id
-        db.Usuario.findByPk({
-            where: {
-                id: userID
-            }
-        })
-        .then(function(usuario){
-            res.render('configuracion', {usuario})
-        })
-
-    },
 
 
-
-    editPerfil: function(req,res,next){
-        db.Usuario.findByPk({ 
-             where: {
-                id:req.params.id
-                 }
-            
-        })
+    editPerfil: function(req,res){
+        db.Usuario.findByPk(req.params.id)
         .then(function(usuario){
             res.render('editPerfil', {usuario})
         })
-
     },
 
 
     newPerfil: function(req,res){
-        db.Usuarios.findByPk(req.params.id)
+        db.Usuario.findByPk(req.params.id)
         .then(function (usuario) {
             let errors = validationResult(req)
             if (!errors.isEmpty()) {
-                res.render("users/perfil/" + req.params.id, { errors: errors.errors, usuario })
+                res.render("users/editPerfil/"+req.params.id, {errors:errors.errors, usuario})
             } else {
                 db.Usuario.update({
                     nombre: req.body.nombre,
@@ -159,7 +145,7 @@ const usersController = {
                     }
                 })
                     .then(function () {
-                        res.redirect('/users/micuenta')
+                        res.render('micuenta', {usuario});
                     })
             }
         })
@@ -175,35 +161,75 @@ const usersController = {
     updatePassword: function(req,res,next){
         db.Usuario.findByPk(req.params.id)
 
-        .then(function(usuario){
-            let errors = validationResult(req)
-            if (!errors.isEmpty()) {
-                res.render("editPassword", { errors: errors.errors, usuario})
-            } else {
-
+        .then(function(usuario){        
                 if(bcrypt.compareSync(req.body.password, usuario.password)){
+
                     db.Usuario.update({
-                        password: bcrypt.hashSync(req.body.newPassword)
+                        password: bcrypt.hashSync(req.body.newPass)
                     }, {
                         where: {
                             id: req.params.id
                         }
                     })
                     .then(function(){
-                        res.redirect('/users/config/'+req.params.id) // redireccionar a configuración
+                        res.render('micuenta', {usuario});
                     })
                 } else {
                     res.render("editPassword",{errorAlLoguear:"contraseña invalida.", usuario});      
                 }
-            }
+            
         })
         
     },
 
+    agregarAdmin: function (req, res, next) {
+        res.render("agregarAdmin");
+    },
+
+    processAdmin: function (req, res, next) {
+        // verifica que no haya errores
+        let errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            res.render("agregarAdmin", { errors: errors.errors })
+        }
+        //busco al email del usuario, si no existe creamos el usuario
+      db.Usuario.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
+        .then(function(usuario){
+            if(!usuario){
+                db.Usuario.create({
+                    nombre: req.body.nombre,
+                    apellido: req.body.apellido,
+                    email: req.body.email,
+                    password: bcrypt.hashSync(req.body.password, 10),
+                    rol_id: 2 
+                                     
+                })
+               .then(function(usuario){
+                         
+
+                    res.redirect('/products');                    
+                })
+            } else {
+               res.render("AgregarAdmin",{errorAlLoguear:"El email ingresado ya existe."});
+          }
+       })
+    },
+
+
+
+
+
+
+
+
     destroySession: function (req, res, next){
         req.session.destroy(
             function (){
-                res.clearCookie('remember')
+                res.clearCookie('remember')                
                 res.redirect("/users/login")
             }
         )

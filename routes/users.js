@@ -46,12 +46,6 @@ router.post('/register',[
 router.get('/micuenta', usersController.micuenta);
 
 
-//pagina configuracion del perfil del usuario
-router.get('/config/:id', authMiddleware, usersController.config);
-
-
-
-
 //formulario para editar perfil del usuario
 router.get('/editPerfil/:id', authMiddleware, usersController.editPerfil);
 
@@ -60,17 +54,32 @@ router.post('/editPerfil/:id', [
   check("apellido").isLength( {min:1, max:30} ).withMessage("Apellido inválido ")
 ], authMiddleware, usersController.newPerfil);
 
+
+
 //Formulario para editar contraseña
 router.get('/editPassword/:id', authMiddleware, usersController.editPassword)
 
 //Actualizar Contraseña en la base de 
-router.post('/editPassword/:id',[
-  body("newPassword2","newPassword").custom(function (value, {req}){
-    if (req.body.newPassword == newPassword2 ){
+router.post('/editPassword/:id', authMiddleware, usersController.updatePassword);
+
+//Agregar administrador
+router.get('/agregarAdmin',authMiddleware, adminMiddleware, usersController.agregarAdmin);
+
+router.post('/agregarAdmin',[ 
+  check("nombre").isLength( {min:1, max:30} ).withMessage("El campo nombre no debe estar vacio "),
+  check("apellido").isLength( {min:1, max:30} ).withMessage("Debe ingresar su Apellido"),
+  check("email").isEmail().withMessage("Formato de email invalido"),
+  check("password").not().isEmpty().withMessage("Contraseña inválida"),
+  body("confirmPassword","password").custom(function (value, {req}){
+    if (req.body.password == req.body.confirmPassword){
       return true;
     }else{ return false}
-  }).withMessage("Las contraseñas no coinciden")
-],authMiddleware, usersController.updatePassword);
+  }).withMessage("Las contraseñas no Coinciden")
+],usersController.processAdmin);
+
+router.get('/prueba', authMiddleware, usersController.locals);
+
+
 
 //cerrar sesión
 router.get('/destroySession', usersController.destroySession);

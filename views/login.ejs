@@ -10,7 +10,47 @@
     <link rel="stylesheet" href="/stylesheets/header-style.css">
     <link rel="stylesheet" href="/stylesheets/footer-style.css">    
     <link rel="stylesheet" href="/stylesheets/styleFormularios.css">
+
+    <script>
+     window.addEventListener("load",function(){
+        const form= document.querySelector("form");
+        const email= document.getElementById("email");
+        
+       
+
+        //si volvemos al login porque hubo un error, borramos el usuario, 
+        //es decir, solo guardamos el usuario si pudo loguearse correctamente.
+       if (localStorage.getItem('user') != null ){
+         localStorage.clear('user');
+         sessionStorage.clear('user')
+         }
+
+        form.addEventListener("submit", function(e){
+            //e.preventDefault();
+           console.log("click");
+        
+           let usuario= email.value;
+           console.log(usuario);
+
+           localStorage.setItem('user', usuario);
+           sessionStorage.setItem('usuarioEnSesion',usuario); 
+
+        });
+    });
+
+
+    </script>
+    <script>
+         window.addEventListener("load",function(){
+            if(usuario!= null){
+                console.log(usuario)
+            }
+
+         })
+    </script>
+  
 </head>
+
 
 <body>
   <%- include('./partials/headerFN') %>
@@ -27,7 +67,8 @@
             <div class="tengoCuenta">  
                  <h1 id="h1Cuenta">Acceder</h1>   
                  
-            </div>       
+            </div>      
+
 
             <% if (typeof errors != "undefined"){ %>
                 <ul>
@@ -43,7 +84,7 @@
                 <label for="user" style="font-weight: bold;">Ingrese su Email:</label>
             </p>
                 <p class="formulario">
-                <input type="email" name="email" id="user">
+                <input type="email" name="email" id="email" class="email">
             </p>
             <p class="formulario">
                 <label for="pass" style="font-weight: bold;">Contraseña:</label></p>
@@ -51,7 +92,7 @@
                 <input type="password" name="password" id="pass">
             </p>
             <label for="remember" style="font-weight: bold;">Recordar Sesion</label>
-            <input type="checkbox" name="remember" id="remember" checked>
+            <input type="checkbox" name="remember" id="remember" class="remember" checked>
             <p id="forgotpass" class="formulario"><a href="">¿Olvidaste tu contraseña?</a></p>
             <p id="forgotpass" class="formulario"><a href="/users/register">¿No tienes una cuenta? Registrate</a></p>
 
@@ -70,6 +111,8 @@
 
 
 <%- include('./partials/footerFN') %> 
+
+
     
 </body>
 </html>

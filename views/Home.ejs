@@ -10,10 +10,38 @@
     <link rel="stylesheet" href="/stylesheets/header-style.css">
     <link rel="stylesheet" href="/stylesheets/footer-style.css">    
     <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <script>
+        //prueba para obtener el usuario, funciona!4
+       /*  window.addEventListener("load",function(){
+        const usernav= document.querySelector(".usernav");   
+       
+
+        let username= localStorage.getItem('user');
+        console.log(username)
+
+        if(username != null ){
+            console.log("hay un usuario logueado");
+            console.log(username);
+            usernav.innerHTML= '<div>'+username+'</div>' 
+
+        }else{
+            usernav.innerHTML= '<div>Iniciar Session</div>' 
+        }
+
+    });   */
+
+
+
+    </script>
 </head>
 
 <body>
     <%- include('./partials/headerFN') %>
+    <div class="usernav">
+
+    </div>
+
     <div class="banner">
         <img src="/images/banerHome.png" alt="" style="width: 100%; margin: 2%;">
     </div>

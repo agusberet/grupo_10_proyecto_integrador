@@ -1,0 +1,87 @@
+body{
+    width: 100%;
+    background-color: #ebebeb; 
+    margin: 0 0 0 0;  
+    
+} 
+.container{
+    display: flex;
+    justify-content: center;    
+    background-image:  url(/images/fondo.png) ;
+    
+    background-repeat: no-repeat;
+    margin-bottom: 2%;
+    margin-top: 2%;
+   background-attachment: fixed;
+    background-color: pink;
+    background-size: 100%;
+    padding: 5%;
+
+}
+.principal{
+    background-color:  rgb(47, 172, 255);    
+}
+main{    
+   
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border-radius: 8px;
+    justify-content: center;    
+    justify-items: center;
+    
+    
+    width: 30%;
+    background-color: white;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-top: 2% ;
+    padding-bottom: 0% ;
+    height: auto;
+}
+
+.main div{    
+    display: flex;
+   width: 100%;
+    
+}
+.saludo{
+    margin-bottom: 0;
+}
+main div div{
+    display: flex;
+    justify-content: center; 
+}
+.opcionCuenta ul {
+    padding:0;
+    width: 60%;
+   
+    
+}
+.opcionCuenta ul li {
+    list-style: none;
+    padding: 0;
+    margin: 4%;
+   
+    
+}
+.opcionCuenta ul li a {
+    text-decoration: none;
+    color: rgb(53, 47, 47) ;
+}
+
+
+
+.opcionCuenta ul li a:hover{
+    color:  crimson;
+    font-weight: bold;
+
+}
+@media (max-width: 768px) {
+    main{
+        width: 60%;
+    }
+    
+}
+    

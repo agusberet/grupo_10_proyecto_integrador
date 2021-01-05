@@ -33,7 +33,7 @@ app.use(rememberMiddleware);
 app.use('/', indexRouter);
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
-app.use('/carts', cartsRouter);
+//app.use('/carts', cartsRouter);
 
 /*catch 404 and forward to error handler
 app.use(function(req, res, next) {

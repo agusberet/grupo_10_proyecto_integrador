@@ -91,7 +91,7 @@ const productController={
 
     },  
 
-     /*listado:  function(req, res) { //para el administador
+     /*listado:  function(req, res) { //para el administador // ya no lo usamos 
         db.Producto.findAll() 
         .then(function(productos) {
         res.render("listado", {productos:productos})

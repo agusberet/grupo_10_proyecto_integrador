@@ -1,12 +1,13 @@
 let authMiddleware = function (req, res, next) {
     if (req.session.usuarioLogueado != undefined) {
-        res.locals.isAuthenticated = true;
         res.locals.usuarioLogueado = req.session.usuarioLogueado;
+        res.locals.usuarioID= req.cookies.usuarioID;
+        res.locals.usuarioRol= req.cookies.usuarioRol;
+
         next();
-    } else {
-        res.locals.isAuthenticated = false;
-        res.redirect("/users/login")
         
+    }else{
+        res.redirect("/users/login")
     }
 }
 
