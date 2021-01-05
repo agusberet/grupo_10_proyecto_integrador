@@ -60,6 +60,9 @@
     font-weight: bolder;
 }
 
+
+
+
 header{ 
     font-family: 'PT Serif', serif;
     font-size: 15px;
@@ -299,6 +302,8 @@ input.src:hover{
         margin:0;
 
     }
+
+   
 
     /*barra de busqueda*/   
     .box{  
