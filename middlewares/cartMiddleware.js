@@ -9,12 +9,13 @@ let cartMiddleware = function(req, res, next) {
     } else {
         db.Carrito.findOne({
             where : { 
-                usuario_id: req.cookies.UsuarioID, 
+                usuario_id: req.cookies.usuarioID,
+                estado: 1,
             }
         })
-        .then(function(carrito) {
-            if(carrito.estado == 1){
-                next();
+        .then(function(estado){
+            if(estado) {
+            next();
             } else {
                 res.send("Para acceder al carrito tenés que agregar productos");
             }
