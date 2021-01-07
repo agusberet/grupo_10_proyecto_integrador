@@ -87,7 +87,8 @@ const usersController = {
                     if(req.body.remember!= undefined){
                         res.cookie('remember', usuario.email, {maxAge:80000000}); 
                         res.cookie('usuarioID', usuario.id, {maxAge:80000000}); 
-                        res.cookie('usuarioRol',  usuario.rol_id, {maxAge:80000000});                         
+                        res.cookie('usuarioRol',  usuario.rol_id, {maxAge:80000000});
+                        res.cookie('usuarioNombre',  usuario.nombre, {maxAge:80000000});                         
                     }
                     res.redirect('/home');
                 } else {

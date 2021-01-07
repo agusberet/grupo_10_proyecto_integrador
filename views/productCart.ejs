@@ -25,30 +25,35 @@
              
             <section class= "Carrito">
 
-                    <p class = "titulo"> Carrito de <%=usuario.nombre%> </p>
+                    <p class = "titulo"> Carrito de <%= nombre%>  </p>
 
                     <article class = "Bloque_Cesta">
 
+                        <% for(var i = 0; i < carrito.productos.length; i++) { %>
+
                         <div class = "producto">
+
+                            
                     
                             <div class = "detalles_producto">
 
-                                <p> Nombre del producto </p>
-                                <p> Eliminar producto </ap>
+                                <p> <%= carrito.productos[i].nombre%> </p>
+                                <p> Eliminar producto </p>
     
                                 </div>
-    
-                                <img src="images/product5.jpg">
-    
+                                <%if( carrito.productos[i].imagenes.length > 0) {%>
+                                <img src="/images/products/<%=carrito.productos[i].imagenes[0].ruta%>"> 
+                                <% } %>     
                                 <div class = "detalles_producto">
     
-                                <p> $$ </p>
-                                <p> Ir a detalles </p>
+                                <p> $<%= carrito.productos[i].precio %> </p>
+                                <a href = "/products/detail/<%= carrito.productos[i].id%>"> Ir a detalles </a>
     
                                 </div>
 
+                            </div>
 
-                        </div>
+                        <% } %>
                     
                     </article>
 
@@ -96,7 +101,7 @@
                 <hr>
 
                 
-            <p class = "Rel"> Si te gustó (producto) tal vez te interesará: </p>    
+            <p class = "Rel"> Productos relacionados </p>    
 
             <section class = "prodRel">
 
