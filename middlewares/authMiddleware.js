@@ -3,6 +3,8 @@ let authMiddleware = function (req, res, next) {
         res.locals.usuarioLogueado = req.session.usuarioLogueado;
         res.locals.usuarioID= req.cookies.usuarioID;
         res.locals.usuarioRol= req.cookies.usuarioRol;
+        res.locals.usuarioNombre = req.cookies.usuarionNombre;
+    
 
         next();
         

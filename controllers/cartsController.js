@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const db = require('../src/database/models');
+const sql = require('sequelize');
 
 const cartsController = {
    mostrarCarrito: function(req, res, next) {
@@ -13,9 +14,14 @@ const cartsController = {
          include: [{ all: true, nested: true}]
         });
     let nombre = req.cookies.usuarioNombre;
-         Promise.all([carrito, nombre])
-        .then(function([carrito, nombre]){
-             res.render("productCart", {carrito:carrito, nombre:nombre});
+    let prodRel = db.Producto.findAll({
+        order: sql.literal('rand()'),
+        limit: 2,
+        include: [{association:"imagenes"}]
+    });
+         Promise.all([carrito, nombre, prodRel])
+        .then(function([carrito, nombre, prodRel]){
+             res.render("productCart", {carrito:carrito, nombre:nombre, prodRel: prodRel});
              console.log(carrito)
          })
    },

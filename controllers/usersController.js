@@ -80,6 +80,7 @@ const usersController = {
                 if(bcrypt.compareSync(req.body.password, usuario.password)){ // comparamos la contraseña ingresada con la contraseña de la db
                     
                     req.session.usuarioLogueado = usuario; 
+                    req.session.rol_id = usuario.rol_id;
                     res.locals.isAuthenticated = true;
                     res.locals.usuarioLogueado = usuario.email;    
                     
@@ -90,6 +91,7 @@ const usersController = {
                         res.cookie('usuarioRol',  usuario.rol_id, {maxAge:80000000});
                         res.cookie('usuarioNombre',  usuario.nombre, {maxAge:80000000});                         
                     }
+                    
                     res.redirect('/home');
                 } else {
                     res.render("login",{errorAlLoguear:"Usuario y/o contraseña invalida."});
@@ -105,7 +107,8 @@ const usersController = {
             db.Usuario.findOne({
                 where: {
                     email: usuario
-                }
+                },
+                include: [{association: "roles"}],
             })
             .then(function(usuario){
                 req.session.usuarioLogueado= usuario.email;       

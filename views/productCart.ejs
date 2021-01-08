@@ -72,7 +72,7 @@
 
                             <form  action = 'validar.php' method = 'POST'> 
 
-                                <button class= "Buy"> Comprar ahora </button>
+                                <a href = "/" class= "Buy"> Comprar ahora </a>
 
                             </form>
 
@@ -110,34 +110,25 @@
                             <p><</p>
                     </div>
 
+                    <% for(var i = 0; i < prodRel.length; i++) { %>
+
                     <article class = "product1">
                     
                         
-                        <img src = "images/product1.jpg">
+                        <img src ="/images/products/<%=prodRel[i].imagenes[0].ruta%>" >
 
                     
                         <div>
 
-                            <p> Nombre del Producto </p>
+                            <a href = "/products/detail/<%= prodRel[i].id%>"> <%= prodRel[i].nombre%></a>
 
-                            <p> $$ </p>
+                            <p> $<%= prodRel[i].precio%> </p>
                             
                         </div>
-                    </article>
-
-                    <article class = "product2">
-
-                        <img src = "images/product2.jpg">
-
-                    
-                        <div>
-
-                            <p> Nombre del Producto </p>
-
-                            <p> $$ </p>
-
 
                     </article>
+
+                    <% } %>
 
                     
 
