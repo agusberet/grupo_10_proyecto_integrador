@@ -26,6 +26,7 @@
             <section class= "Carrito">
 
                     <p class = "titulo"> Carrito de <%= nombre%>  </p>
+                    
 
                     <article class = "Bloque_Cesta">
 
@@ -38,7 +39,7 @@
                             <div class = "detalles_producto">
 
                                 <p> <%= carrito.productos[i].nombre%> </p>
-                                <p> Eliminar producto </p>
+                                <a href= "/carts/borrar/<%= carrito.productos[i].id%>/<%= carrito.id%>"> Eliminar producto </a>
     
                                 </div>
                                 <%if( carrito.productos[i].imagenes.length > 0) {%>

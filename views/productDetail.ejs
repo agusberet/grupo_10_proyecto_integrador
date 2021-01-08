@@ -35,7 +35,7 @@
                 <h3> <%=product.nombre%></h3>                
                 <div id="datos">                    
                     <%if(product.descuento > 0 ) {%>
-                        <p id="precio" >$<%=product.precio%></p> 
+                        <input name="precio" id="precio" >$<%=product.precio%></p> 
                         <p id="precioConDesc" > $<%=product.precio * (1- (product.descuento/100) ) %></p>                    
                         <p id="descuento"><%=product.descuento%>%</p>
                     <% } else { %>
@@ -49,10 +49,12 @@
             </div>
             
             
-            <form action="/carts">" method="POST" class="met-pago">    
+            <form action="/carts" method="POST" class="met-pago">    
                 <div id="met-pago">      
-                 <button id="botonCA" type="submit" name="agrega" href="">Añadir al carrito</button><br>
+                 <button id="botonCA" type="submit">Añadir al carrito</button><br>
                 </div>
+                <input type= "number" min = 1 step value= 1 name = "cantidad" class = "cantidad">
+                <input type= "number" value= "<%= product.id %>" class = "id" name = "id">
             </form> 
          
             

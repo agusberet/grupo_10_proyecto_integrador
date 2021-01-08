@@ -3,6 +3,7 @@ const path = require('path');
 const multer = require('multer');
 const db = require('../src/database/models');
 const sql = require('sequelize');
+const { promiseImpl } = require('ejs');
 
 const cartsController = {
    mostrarCarrito: function(req, res, next) {
@@ -26,8 +27,72 @@ const cartsController = {
          })
    },
    agregarProducto: function(req, res, next) {
-       
+    
+        db.Carrito.findOne({
+            where: {
+                 usuario_id: req.cookies.usuarioID,
+                 estado: 1,
+             }
+            })
+            .then(function(carrito) {
+            if(!carrito) {
+                db.Carrito.create({
+                usuario_id: req.cookies.usuarioID,
+                total: req.body.cantidad,
+                cantidad: req.body.cantidad,
+                fechaCreacion: Date.now(),
+                fechaCompra: 1,
+                estado: 1,
+                })
+            };
+                db.Carrito_Producto.findOne({
+                    where: {
+                        carrito_id: carrito.id,
+                        producto_id: req.body.id,
+                    }
+                })
+                .then(function(carritoProducto) {
+                    if(!carritoProducto) {
+                        db.Carrito_Producto.create({
+                            carrito_id: carrito.id,
+                            producto_id: req.body.id,
+                            cantidad: req.body.cantidad,
+                            precioCongelado: 0,
+                    });
+                     } else {
+                    db.Carrito_Producto.update({
+                        cantidad: req.body.cantidad,
+                        precioCongelado: 0,
+                    }, {
+                     where: {
+                        carrito_id: carrito.id,
+                        producto_id: req.body.id,
+                        }})
+                    };
+                });
+                    res.redirect("/products")
+                });
     },
-}
+    eliminarProducto: (req, res, next) => {
+            try {
+            db.Carrito_Producto.destroy({ //para eliminar el producto de la base de datos
+                where: {
+                    carrito_id: req.params.cartId,
+                    producto_id: req.params.id,
+                }, 
+                
+            })
+            .then(function () {
+            res.redirect("/carts");
+            })
+        } catch (error) {
+        console.log(error)
+        }
+        },
+    }
+
+
+
+
 
 module.exports = cartsController;

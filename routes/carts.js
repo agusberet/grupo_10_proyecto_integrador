@@ -20,4 +20,6 @@ var storage = multer.diskStorage({
 router.get("/", cartMiddleware, cartsController.mostrarCarrito);
 router.post("/", cartsController.agregarProducto);
 
+router.get("/borrar/:id/:cartId", cartsController.eliminarProducto);
+
 module.exports = router;

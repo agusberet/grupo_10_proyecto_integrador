@@ -195,6 +195,18 @@ body {
     width: 100%;
 }
 
+.cantidad {
+    width: 40px;
+    height: 20px;
+    text-align: right;
+    position: relative;
+    left:20px
+}
+
+.id {
+    display: none
+}
+
 
 tr:nth-child(odd){
 background-color:rgb(238, 235, 235);
