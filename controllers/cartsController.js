@@ -16,43 +16,29 @@ const cartsController = {
          include: [{ all: true, nested: true}]
         });
     let nombre = req.cookies.usuarioNombre;
-    let carritoProducto = Promise.all([carrito]).then(function(carro) {
-        db.Carrito_Producto.findAll({
-            where: {
-                carrito_id: carro.id
-            }
-        })
-   }); 
     let prodRel = db.Producto.findAll({
         order: sql.literal('rand()'),
         limit: 2,
         include: [{association:"imagenes"}]
     });
-    let total = Promise.all([carrito]).then(function(carrito){ db.Carrito_Producto.count({
-        where: {
-            cantidad: true,
-            carrito_id: carrito.id,
-        }
-    })
-});
-    let precioTotal = 
-    Promise.all([carritoProducto])
-            .then(function(carritoProducto){
-            db.Producto.count({
-                where: {
-                    id: carritoProducto.producto_id,
-                    precio: true,
-                }
-            })
-        }); 
+    let total = carrito.then((id) => {
+        db.Carrito_Producto.count({
+            where: {
+                carrito_id: id.id,
+                cantidad: true,
+            }
+        })
+    });
+    
+   /* let precioTotal = carrito.productos.precio; */
     
    
     
-         Promise.all([carrito, nombre, prodRel, total, carritoProducto, precioTotal])
-        .then(function([carrito, nombre, prodRel, total, carritoProducto, precioTotal]){
+         Promise.all([carrito, nombre, prodRel, total])
+        .then(function([carrito, nombre, prodRel, total]){
             
              res.render("productCart", {carrito, nombre, prodRel, total});
-             console.log(carrito); 
+             
              
          })
          
