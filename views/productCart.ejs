@@ -31,14 +31,22 @@
                     <article class = "Bloque_Cesta">
 
                         <% for(var i = 0; i < carrito.productos.length; i++) { %>
+                        <% for(var i = 0; i < carrito.carritos_productos.length; i++) { %>
 
                         <div class = "producto">
+
+                            
 
                             
                     
                             <div class = "detalles_producto">
 
                                 <p> <%= carrito.productos[i].nombre%> </p>
+                                <form action= "/carts" method = "POST">
+                                <input type= "number" min = 1 step value = "<%=carrito.carritos_productos[i].cantidad%>"  name = "cantidad" class = "cantidad">
+                                </form>
+                                
+
                                 <a href= "/carts/borrar/<%= carrito.productos[i].id%>/<%= carrito.id%>"> Eliminar producto </a>
     
                                 </div>
@@ -55,6 +63,7 @@
                             </div>
 
                         <% } %>
+                        <% } %>
                     
                     </article>
 
@@ -63,19 +72,19 @@
                         <div class= "detalle_general">
 
                        
-                            <p class= "detallesG"> Productos en el carrito </p>
+                            <p class= "detallesG"> Productos en el carrito = <%= total %> </p>
                         
-                            <p class= "detallesG"> Precio de envio </p>
+                            
 
                         </div>
                     
                         <div class = "precio_general">
 
-                            <form  action = 'validar.php' method = 'POST'> 
+                            
 
-                                <a href = "/" class= "Buy"> Comprar ahora </a>
+                                <a href = "/carts/confirmar" class= "Buy"> Comprar ahora </a>
 
-                            </form>
+                            
 
                         <div class = "p_total">
 

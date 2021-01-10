@@ -15,13 +15,28 @@ let cartMiddleware = function(req, res, next) {
         })
         .then(function(estado){
             if(estado) {
-            next();
-            } else {
-                res.send("Para acceder al carrito tenés que agregar productos");
+                db.Carrito_Producto.findOne({
+                    where: {
+                        carrito_id: estado.id,
+                    }
+                })
+                .then(function(estado) {
+                if(estado) {
+                next();
+            } else { res.send("Para tener un carrito tenes que agregar productos");
+        db.Carrito.update({
+            estado: 0,
+        }, {
+            where: {
+                usuario_id: req.cookies.usuarioID,
+                estado: 1,
             }
+        })}
         });
 
-    }
+    } else {  res.send("Para tener un carrito tenes que agregar productos")}
+})
+}
 }
 
 

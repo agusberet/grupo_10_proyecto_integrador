@@ -22,4 +22,6 @@ router.post("/", cartsController.agregarProducto);
 
 router.get("/borrar/:id/:cartId", cartsController.eliminarProducto);
 
+router.get("/confirmar", cartsController.confirmarCompra)
+
 module.exports = router;
