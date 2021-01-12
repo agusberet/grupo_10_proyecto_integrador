@@ -68,11 +68,17 @@ hr {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
+    justify-content: center;
     
 }
 
+.cantidad {
+    position: relative;
+    bottom: 4px;
+}
+
 .detalles_producto p, .detalles_producto a {
-    font-size: 3.5vw;
+    font-size: 2vw;
     text-align: center;
     width: 100%;
 }
@@ -132,7 +138,7 @@ hr {
     width: 50%;
     display: flex;
     flex-wrap: wrap;
-    justify-items:center;
+    justify-content:center;
 
 }
 
@@ -144,10 +150,13 @@ hr {
 
 .Buy {
     border-radius: 5px;
+    color:  rgb(43, 171, 221);
     background-color: blue;
     padding: 3px;
     font-size: 3vw;
 }
+
+
 
 .detallesG {
     font-size: 3.5vw;
@@ -193,11 +202,15 @@ hr {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
+
 
 .prodRel article {
     width: 35%;
-    font-size: 2.8vw;
+    font-size: 2vw;
     display: flex;
     align-content: center;
     justify-content: space-between;
@@ -304,7 +317,7 @@ hr {
     .Buy {
         font-size: 20px;
         position: relative;
-        background-color: white;
+        background-color: blue;
         color: rgb(43, 171, 221);
         padding: 10px 10px 10px 10px;
     }

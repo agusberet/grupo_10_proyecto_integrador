@@ -15,6 +15,8 @@
             <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     </head>
+
+     
         
 
     <body> 
@@ -32,6 +34,7 @@
 
                         <% for(var i = 0; i < carrito.productos.length; i++) { %>
                         <% for(var i = 0; i < carrito.carritos_productos.length; i++) { %>
+                            <% let cantidad = carrito.carritos_productos[i].cantidad; %>
 
                         <div class = "producto">
 
@@ -41,10 +44,11 @@
                     
                             <div class = "detalles_producto">
 
-                                <p> <%= carrito.productos[i].nombre%> </p>
+                                <span><p> <%= carrito.productos[i].nombre%> </p>
                                 <form action= "/carts" method = "POST">
-                                <input type= "number" min = 1 step value = "<%=carrito.carritos_productos[i].cantidad%>"  name = "cantidad" class = "cantidad">
+                                <input type= "number" min = 1 step value = "<%= cantidad%>"  name = "cantidad" class = "cantidad">
                                 </form>
+                                </span>
                                 
 
                                 <a href= "/carts/borrar/<%= carrito.productos[i].id%>/<%= carrito.id%>"> Eliminar producto </a>
@@ -55,7 +59,7 @@
                                 <% } %>     
                                 <div class = "detalles_producto">
     
-                                <p> $<%= carrito.productos[i].precio %> </p>
+                                <p> $<%= carrito.productos[i].precio * cantidad %> </p>
                                 <a href = "/products/detail/<%= carrito.productos[i].id%>"> Ir a detalles </a>
     
                                 </div>
@@ -69,20 +73,14 @@
 
                     <article class = "detalles_compra">
 
-                        <div class= "detalle_general">
-
-                       
-                            <p class= "detallesG"> Productos en el carrito = <%= total %> </p>
                         
-                            
-
-                        </div>
                     
                         <div class = "precio_general">
 
                             
-
-                                <a href = "/carts/confirmar" class= "Buy"> Comprar ahora </a>
+                                <form action = "/carts/confirmar" method = "GET" class = "FormBuy">
+                                <button type = "submit" class= "Buy"> Comprar ahora </button>
+                                </form>
 
                             
 
@@ -115,10 +113,7 @@
 
             <section class = "prodRel">
 
-                    <div class = "botonA">
-
-                            <p><</p>
-                    </div>
+                    
 
                     <% for(var i = 0; i < prodRel.length; i++) { %>
 
@@ -142,11 +137,7 @@
 
                     
 
-                    <div class = "botonS">
-
-                        <p>></p>
-
-                    </div>
+                    
 
 
 

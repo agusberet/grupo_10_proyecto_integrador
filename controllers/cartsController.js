@@ -100,7 +100,7 @@ const cartsController = {
                 }
             )
                 })
-        
+            
     },
     eliminarProducto: (req, res, next) => {
             try {
